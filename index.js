@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 
 import usersRoutes from './routes/users.js';
@@ -9,6 +10,14 @@ const app = express();
 
 // dotenv config
 dotenv.config();
+
+// database config
+mongoose.connect(process.env.DBURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then((result) => console.log('DB Connected'))
+.catch((error) => console.log(error));
 
 app.use(bodyParser.json());
 
